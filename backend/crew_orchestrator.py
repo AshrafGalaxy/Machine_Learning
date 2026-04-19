@@ -182,7 +182,7 @@ async def run_pipeline(request: RunRequest, sse=None) -> RunResult:
         emit_step("Cloning repository", 0, f"Cloning {request.repo_url}...")
         emit_agent("Clone Agent", f"Cloning {request.repo_url}...", "progress")
 
-        repo_path = clone_agent.run(request.repo_url, request.team_name, getattr(request, 'github_token', None))
+        repo_path = clone_agent.run(request.repo_url, request.team_name)
         logger.info(f"Repo cloned to: {repo_path}")
         emit_agent("Clone Agent", f"Repository cloned to {repo_path}", "success")
 

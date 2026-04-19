@@ -105,7 +105,6 @@ const useAgentStore = create(
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           repo_url: repoUrl,
-          github_token: get().githubToken,
           team_name: teamName || 'Aegis_Team',
           leader_name: leaderName || 'Agent',
           max_iterations: get().maxIterations,
@@ -165,7 +164,6 @@ const useAgentStore = create(
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             repo_url: get().repoUrl,
-            github_token: get().githubToken,
             team_name: get().teamName || 'Aegis_Team',
             leader_name: get().leaderName || 'Agent',
             max_iterations: get().maxIterations,

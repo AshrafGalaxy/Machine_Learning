@@ -18,16 +18,9 @@ logger = logging.getLogger("rift.git_service")
 class GitService:
     """Git operations with hackathon guardrails enforced."""
 
-    def clone_repo(self, repo_url: str, dest_path: str, github_token: str | None = None) -> Repo:
+    def clone_repo(self, repo_url: str, dest_path: str) -> Repo:
         """Clone a repository to dest_path (shallow, single-branch for speed)."""
         logger.info(f"Cloning {repo_url} → {dest_path} (shallow)")
-        
-        # Inject token if provided to bind remote URL to the user's session
-        if github_token:
-            from urllib.parse import urlparse
-            parsed = urlparse(repo_url)
-            if parsed.scheme == "https":
-                repo_url = f"https://x-access-token:{github_token}@{parsed.netloc}{parsed.path}"
 
         repo = Repo.clone_from(
             repo_url, dest_path,

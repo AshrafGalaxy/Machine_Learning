@@ -16,14 +16,14 @@ logger = logging.getLogger("rift.clone_agent")
 class CloneAgent:
     """Agent responsible for cloning the target repository."""
 
-    def run(self, repo_url: str, team_name: str, github_token: str | None = None) -> str:
+    def run(self, repo_url: str, team_name: str) -> str:
         """
         Clone the repo into CLONE_DIR/<team_name_sanitized>.
 
         Args:
             repo_url: GitHub repo URL.
             team_name: Team name (used for folder naming).
-            github_token: Optional authentication token.
+
 
         Returns:
             Absolute path to the cloned repo.
@@ -41,7 +41,7 @@ class CloneAgent:
         dest.parent.mkdir(parents=True, exist_ok=True)
 
         logger.info(f"Cloning {repo_url} → {dest}")
-        git_service.clone_repo(repo_url, str(dest), github_token=github_token)
+        git_service.clone_repo(repo_url, str(dest))
 
         logger.info(f"Clone complete: {dest}")
         return str(dest)
