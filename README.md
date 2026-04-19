@@ -92,35 +92,42 @@ Aegis relies on a dynamic **Triad Architecture**, guaranteeing immense machine l
 Aegis utilizes a robust, unidirectional verification loop (`backend/crew_orchestrator.py`) handling all edge cases:
 
 ```mermaid
-graph LR
+graph TD
+    classDef user fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:black,font-weight:bold
     classDef model fill:#FFF3E0,stroke:#FB8C00,stroke-width:2px,color:black,font-weight:bold
-    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px,color:black
-    classDef success fill:#E0F7FA,stroke:#00ACC1,stroke-width:2px,color:black
+    classDef agent fill:#F3E5F5,stroke:#8E24AA,stroke-width:2px,color:black,font-weight:bold
+    classDef sandbox fill:#E8F5E9,stroke:#43A047,stroke-width:2px,color:black
+    classDef git fill:#FFEBEE,stroke:#C62828,stroke-width:2px,color:black
+    classDef success fill:#E0F7FA,stroke:#00ACC1,stroke-width:3px,color:black,font-weight:bold
 
-    Sub([User Submit]) --> HF
+    Sub([1. User Submits Repository URI & Token]):::user --> DB
     
-    subgraph Phase 1: Machine Learning Array
-        HF[("<b>Hugging Face Hub</b><br/>travis_python_risk_predictor.pkl")]:::model --> |Downloads| S1
-        S1{"<b>Risk Predictor</b><br/>Calculates CI/CD failure %"}
+    DB[("<b>Hugging Face Hub</b><br/>Downloads <i>travis_python_risk_predictor.pkl</i>")]:::model --> ML
+    
+    ML{"<b>2. Risk Predictor Engine</b><br/>Calculates CI/CD failure probability"}:::model
+    ML --> |Initiates Repair Pipeline| CA
+    
+    subgraph Autonomous Agentic Loop
+        CA["<b>🤖 Clone Agent</b><br/>Clones Repo & Scaffolds Local Environment"]:::agent --> DA
+        
+        DA["<b>🤖 Discover Agent</b><br/>Detects Testing Frameworks (PyTest / Unittest)"]:::agent --> VA1
+        
+        VA1{"<b>🤖 Verify Agent (Initial Run)</b><br/>Spins up Docker Sandbox & Runs Baseline Tests"}:::sandbox
+        
+        VA1 -.-> |"Diagnostics Clean"| YAY(["Terminate: Branch is Healthy"]):::success
+        VA1 --> |"Build Crashes / Tests Fail"| AA
+        
+        AA["<b>🤖 Analyze Agent</b><br/>Parses Tracebacks & Diagnoses Root AST/Logic Errors"]:::agent --> HA
+        
+        HA["<b>🤖 Heal Agent</b><br/>Generates & Injects Strict Multi-File Patches"]:::agent --> VA2
+        
+        VA2{"<b>🤖 Verify Agent (Re-Run)</b><br/>Executes New Code inside Isolated Docker Daemon"}:::sandbox
+        
+        VA2 --> |"Tests Still Fail (Iterative Loop)"| AA
     end
     
-    S1 --> |Initiate| S2
-    
-    subgraph Phase 2: Analysis Array
-        S2{"<b>Test Discovery</b><br/>Execute Frameworks"}
-        S2 -->|"Build Fails"| N2["<b>Analyze Agent</b><br/>Diagnose Regex/AST Errors"]
-    end
-    
-    S2 -.-> |Passes| N1(["Terminate (Success)"]):::success
-    N2 --> S3
-    
-    subgraph Phase 3: Autonomous Healing Loop
-        S3["<b>Heal Agent</b><br/>Generate Structural Patch"] --> S4
-        S4{"<b>Verification Sandbox</b><br/>Execute Docker Isolation"}
-        S4 -->|"Fails Again"| N2
-    end
-    
-    S4 -->|"Validates Clean"| S5(["<b>Secure Push</b><br/>Commit Verified Code to Github"]):::success
+    VA2 --> |"All Tests Pass"| PUSH
+    PUSH["<b>Secure Push Protocol</b><br/>Creates Unique Branch & Commits Verified Fixes"]:::git --> WIN(["Successful PR on GitHub"]):::success
 ```
 
 ---
