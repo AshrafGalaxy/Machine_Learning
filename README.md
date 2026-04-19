@@ -100,12 +100,16 @@ graph TD
     classDef git fill:#FFEBEE,stroke:#C62828,stroke-width:2px,color:black
     classDef success fill:#E0F7FA,stroke:#00ACC1,stroke-width:3px,color:black,font-weight:bold
 
-    Sub([1. User Submits Repository URI & Token]):::user --> DB
+    %% Server Boot Sequence
+    BOOT(("<b>Backend Startup</b><br/>Hugging Face Hub Downloads <i>.pkl model</i>")):::model
     
-    DB[("<b>Hugging Face Hub</b><br/>Downloads <i>travis_python_risk_predictor.pkl</i>")]:::model --> ML
+    Sub([1. User Inputs Repository URI & Token]):::user
+
+    Sub --> |"Path A: Assess Build Risk"| ML
+    Sub --> |"Path B: Analyze & Repair"| CA
     
-    ML{"<b>2. Risk Predictor Engine</b><br/>Calculates CI/CD failure probability"}:::model
-    ML --> |Initiates Repair Pipeline| CA
+    ML{"<b>2. Risk Predictor Engine</b><br/>Extracts GitHub stats & calculates failure %"}:::model
+    ML --> |"Returns Stats"| UI(["View Dashboard UI"]):::success
     
     subgraph Autonomous Agentic Loop
         CA["<b>🤖 Clone Agent</b><br/>Clones Repo & Scaffolds Local Environment"]:::agent --> DA
