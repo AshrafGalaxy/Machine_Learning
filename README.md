@@ -108,6 +108,8 @@ graph TD
     Sub --> |"Path A: Assess Build Risk"| ML
     Sub --> |"Path B: Analyze & Repair"| CA
     
+    BOOT -.-> |"Loads ML Framework into Memory"| ML
+    
     ML{"<b>2. Risk Predictor Engine</b><br/>Extracts GitHub stats & calculates failure %"}:::model
     ML --> |"Returns Stats"| UI(["View Dashboard UI"]):::success
     
