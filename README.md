@@ -189,23 +189,85 @@ To cleanly observe the AI's zero-trust patching process without mutating your ac
 
 ## 📁 Core Directory Structure
 
-```
+```text
 Machine_Learning/
-├── README.md               # Architecture documentation
-├── backend/
-│   ├── main.py             # FastAPI Server & Model Loading logic
-│   ├── crew_orchestrator.py # Multi-Agent sequential loop logic
-│   ├── config.py           # Infrastructure strict constants
-│   ├── models.py           # Pydantic schemas protecting I/O integrity
-│   ├── services/
-│   │   ├── git_service.py  # Zero-trust GitHub integration & push validation
-│   │   └── github_service.py # Feature extraction for the ML model
-│   └── agents/             
-│       ├── analyze_agent.py # Bug categorization protocols
-│       └── heal_agent.py   # AST and patching protocols
-└── frontend/
+├── .github/workflows/      # Automated Github Action runners
+├── .gitignore              # Secures sensitive keys and ignores massive data artifacts
+├── docker-compose.yml      # Orchestrates backend & frontend containerization environments
+├── Dockerfile.sandbox      # The ephemeral Docker blueprint for the zero-trust code execution
+├── render.yaml             # Render deployment infrastructure configuration
+├── Aegis_Model_Training.ipynb # Full data manipulation pipeline used to train the HF Random Forest model
+├── README.md               # Master comprehensive architectural documentation
+│
+├── backend/                # FASTAPI ENGINE & MULTI-AGENT INFERENCE
+│   ├── main.py             # Express API router & HuggingFace Model fetcher/loader
+│   ├── crew_orchestrator.py# Directed Agent workflow orchestrator
+│   ├── config.py           # Strictly enforced system constraints and sandbox definitions
+│   ├── models.py           # Pydantic schemas protecting input/output and SSE stream integrity
+│   ├── requirements.txt    # Frozen pip dependencies
+│   ├── .env.example        # Environment layout blueprint (requires GEMINI_API_KEY)
+│   ├── sse_manager.py      # Real-time WebSocket connection manager streaming AI thought logs
+│   ├── utils.py            # Centralized structural path formatters and parsers
+│   │
+│   ├── agents/             # DYNAMIC INTELLIGENCE PROTOCOLS
+│   │   ├── analyze_agent.py# Regex and log auditor diagnosing precise crash logic
+│   │   ├── clone_agent.py  # Repository caching and local branch environment scaffold
+│   │   ├── discover_agent.py # PyTest/Unittest/Tox dynamic framework discovery
+│   │   ├── heal_agent.py   # Code generation module executing strict structural patches
+│   │   └── verify_agent.py # Invokes Docker payload tests iteratively until passing
+│   │
+│   └── services/           # BRIDGE INFRASTRUCTURE
+│       ├── docker_service.py # Interacts securely with local Daemon to run tests ephemerally
+│       ├── git_service.py    # Native push protocol injecting user-session GitHub tokens
+│       ├── github_service.py # Pulls repo churn records for machine-learning scoring algorithm
+│       └── results_service.py# Finalizes JSON logging of the healing event
+│
+├── frontend/               # VITE + REACT DASHBOARD
+│   ├── index.html          # Web application entry DOM
+│   ├── package.json        # Node.js ecosystem and script definitions
+│   ├── vite.config.js      # Zero-config Vite module bundler definitions
+│   ├── eslint.config.js    # Strict ESLint standard configurations
+│   ├── src/
+│   │   ├── App.jsx         # Primary router assigning structural pathways
+│   │   ├── main.jsx        # Highest-level React DOM renderer
+│   │   ├── index.css       # Fully customized CSS utility pipeline
+│   │   │
+│   │   ├── pages/          
+│   │   │   └── LandingPage.jsx  # Hero layout encompassing the ML Assessment Dashboard & Input components
+│   │   │
+│   │   ├── store/
+│   │   │   └── useAgentStore.js # Critical Zustand Global Store orchestrating async pipeline flows
+│   │   │
+│   │   ├── lib/
+│   │   │   ├── firebase.js      # Authentication and database link handler
+│   │   │   └── utils.js         # Shadcn tailwind-merge utility functions
+│   │   │
+│   │   ├── components/     # CUSTOM DESIGNED REACT ARCHITECTURE
+│   │   │   ├── HeroInput.jsx    # Primary repository ingestion and token passing interface
+│   │   │   ├── ScoreBreakdown.jsx # Real-time visualization of ML Risk Predictor drivers
+│   │   │   ├── RunSummary.jsx   # Top-level failure probability and risk assessment visualizer
+│   │   │   ├── ActivityLog.jsx  # Streams localized thought behaviors from the CrewAI agents
+│   │   │   ├── CICDTimeline.jsx # Graphical node-based visualization of the pipeline status layout
+│   │   │   ├── FixesTable.jsx   # Dynamic grid enumerating lines updated and logical differences
+│   │   │   ├── Skeletons.jsx    # Pulsing dark-mode rendering fallbacks used during API latency states
+│   │   │   ├── Navbar.jsx       # Top-level navigator featuring Firebase Auth elements
+│   │   │   └── Footer.jsx       # Project attribution details
+│   │   │
+│   │   └── components/v0_ui/ # REUSABLE DESIGN SYSTEMS (Shadcn Core)
+│   │       ├── dashboard-section.jsx # Section wrapper for dashboard layouts
+│   │       ├── features-section.jsx  # Section wrapper highlighting platform features
+│   │       ├── theme-provider.jsx    # Handles dark-mode contexts natively
+│   │       └── ui/             # PRIMITIVE ATOMIC SHELLS
+│   │           ├── ...         # (accordion, button, card, chart, form, input, toast, etc.)
+│   │
+└── test_sandbox/           # ZERO-TRUST TARGET ENVIRONMENT
+    ├── requirements.txt    # Defines fake sandbox libraries
+    │
     ├── src/
-    │   ├── store/          # Zustand global state (Agent Stream Handlers)
-    │   └── components/     # Framer Motion animated metrics and dashboards
-    └── index.css           # Tokenized utility styles
+    │   ├── math_logic.py   # Flawed target code designed to be autonomously evaluated and fixed by Aegis
+    │   └── parser.py       # Additional flawed python parsing target
+    │
+    └── tests/
+        ├── test_math_logic.py # Explicit Unittest file invoking broken arithmetic
+        └── test_parser.py     # Explicit Unittest invoking misconfigured imports
 ```
