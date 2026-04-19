@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+
+# Environment & Secrets
+.env
+backend/.env
+
+# Build outputs
+frontend/dist/
+*.egg-info/
+
+# Runtime data
+results.json
+backend/cloned_repos/
+
+# Virtual environments
+.venv/
+venv/
+
+# Large Files & ML Data
+*.csv
+*.pkl
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
+
+# Temp / stale folders
+error-main/
+.gemini/
