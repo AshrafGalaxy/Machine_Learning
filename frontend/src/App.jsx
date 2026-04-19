@@ -12,6 +12,8 @@ import CICDTimeline from './components/CICDTimeline';
 import ActivityLog from './components/ActivityLog';
 // New v0 Views
 import LandingPage from './pages/LandingPage';
+import { AuthPage } from './components/v0_ui/auth-page';
+import { SettingsDashboard } from './components/v0_ui/settings-dashboard';
 import { Footer } from './components/v0_ui/footer';
 
 function ErrorBanner() {
@@ -40,7 +42,7 @@ function ErrorBanner() {
 
 function ProtectedRoute({ children }) {
   const isAuthenticated = useAgentStore((s) => s.isAuthenticated);
-  if (!isAuthenticated) return <Navigate to="/" />;
+  if (!isAuthenticated) return <Navigate to="/auth" />;
   return children;
 }
 
@@ -84,7 +86,9 @@ export default function App() {
         <div className="flex-1 flex flex-col pt-24">
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/auth" element={<AuthPage />} />
             <Route path="/app" element={<ProtectedRoute><CoreAppView /></ProtectedRoute>} />
+            <Route path="/settings" element={<ProtectedRoute><SettingsDashboard /></ProtectedRoute>} />
           </Routes>
         </div>
         <Footer />
