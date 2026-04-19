@@ -57,7 +57,10 @@ Watch the pipeline operate across three distinct intelligence domains:
 
 ## 📖 Architecture Overview
 
-Aegis relies on a dynamic **Triad Architecture**, guaranteeing immense machine learning processing power can be paired seamlessly with serverless environments.
+Aegis relies on a dynamic **Triad Architecture**, guaranteeing immense Machine Learning
+- Scikit-learn, Pandas, Joblib
+- Trained on `TravisTorrent 2017` CI/CD data
+- **Model Training Notebook**: See `Aegis_Model_Training.ipynb` in the root repository. It contains the complete data extrapolation pipeline and structural training logic used to generate the live `.pkl` model.h serverless environments.
 
 **Key Architectural Features:**
 
@@ -154,14 +157,19 @@ python main.py
 ```
 *API available instantly at `http://localhost:8000`*
 
-### 3. Launching the Frontend
-
+### 3. Frontend Development
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-*Dashboard available locally at `http://localhost:5173`*
+*UI available at http://localhost:5173*
+
+### 4. Local Sandbox Testing
+To cleanly observe the AI's zero-trust patching process without mutating your active project files, use the included `test_sandbox` directory.
+1. Run the backend and frontend as usual.
+2. Select the `test_sandbox` paths or files when executing verification loops instead of production source code.
+3. The AI Verify_Agent and Heal_Agent will use this isolated directory to safely mock crashes, parse AST structures, and draft test-suite fixes natively without risking your primary codebase.
 
 ---
 
