@@ -57,10 +57,7 @@ Watch the pipeline operate across three distinct intelligence domains:
 
 ## 📖 Architecture Overview
 
-Aegis relies on a dynamic **Triad Architecture**, guaranteeing immense Machine Learning
-- Scikit-learn, Pandas, Joblib
-- Trained on `TravisTorrent 2017` CI/CD data
-- **Model Training Notebook**: See `Aegis_Model_Training.ipynb` in the root repository. It contains the complete data extrapolation pipeline and structural training logic used to generate the live `.pkl` model.h serverless environments.
+Aegis relies on a dynamic **Triad Architecture**, guaranteeing immense machine learning processing power can be paired seamlessly with serverless environments.
 
 **Key Architectural Features:**
 
@@ -71,6 +68,22 @@ Aegis relies on a dynamic **Triad Architecture**, guaranteeing immense Machine L
 | **Dynamic AST Injection** | Generates verified Python `__CROSSFILE__` injection instructions for strict logical repairs. |
 | **Zero-Trust Dockering** | Executes all unverified code inside a lightweight ephemeral Docker sandbox container. |
 | **SSE Streaming** | Live-streams the AI Agent's internal thought process back to the React UI using Server-Sent Events. |
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend**
+- React 19, Vite, TailwindCSS 4, Zustand, Framer Motion, Recharts
+
+**Backend & AI**
+- Python 3.12, FastAPI, CrewAI, Google Gemini 2.0 Flash
+- Hugging Face Hub (Model distribution)
+
+**Machine Learning**
+- Scikit-learn, Pandas, Joblib
+- Trained on `TravisTorrent 2017` CI/CD data
+- **Model Training Notebook**: See `Aegis_Model_Training.ipynb` in the root repository. It contains the complete data extrapolation pipeline and structural training logic used to generate the live `.pkl` model.
 
 ---
 
@@ -164,6 +177,7 @@ npm install
 npm run dev
 ```
 *UI available at http://localhost:5173*
+
 
 ### 4. Local Sandbox Testing
 To cleanly observe the AI's zero-trust patching process without mutating your active project files, use the included `test_sandbox` directory.
