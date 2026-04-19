@@ -92,20 +92,35 @@ Aegis relies on a dynamic **Triad Architecture**, guaranteeing immense machine l
 Aegis utilizes a robust, unidirectional verification loop (`backend/crew_orchestrator.py`) handling all edge cases:
 
 ```mermaid
-graph TD
-    Sub([User Submits Repository]) --> S1["<b>1. RISK PREDICTION</b><br/>HuggingFace RF Model calculates failure %"]
+graph LR
+    classDef model fill:#FFF3E0,stroke:#FB8C00,stroke-width:2px,color:black,font-weight:bold
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px,color:black
+    classDef success fill:#E0F7FA,stroke:#00ACC1,stroke-width:2px,color:black
+
+    Sub([User Submit]) --> HF
     
-    S1 --> S2{"<b>2. DISCOVERY</b><br/>Test suite detection & execution"}
+    subgraph Phase 1: Machine Learning Array
+        HF[("<b>Hugging Face Hub</b><br/>travis_python_risk_predictor.pkl")]:::model --> |Downloads| S1
+        S1{"<b>Risk Predictor</b><br/>Calculates CI/CD failure %"}
+    end
     
-    S2 -->|"Passed"| N1["Terminate Pipeline (Success)"]
-    S2 -->|"Failed"| N2["<b>3. ANALYZE PHASE</b><br/>Categorize Syntax/Logic/Import Errors"]
+    S1 --> |Initiate| S2
     
-    N2 --> S3["<b>4. HEALING PHASE</b><br/>Agents draft & execute cross-file patches"]
+    subgraph Phase 2: Analysis Array
+        S2{"<b>Test Discovery</b><br/>Execute Frameworks"}
+        S2 -->|"Build Fails"| N2["<b>Analyze Agent</b><br/>Diagnose Regex/AST Errors"]
+    end
     
-    S3 --> S4["<b>5. VERIFICATION PHASE</b><br/>Sandbox re-runs full test suite"]
+    S2 -.-> |Passes| N1(["Terminate (Success)"]):::success
+    N2 --> S3
     
-    S4 -->|"Still Failing"| N2
-    S4 -->|"All Passed"| S5["<b>6. GITHUB PUSH</b><br/>Create Branch & Push Verified Commits"]
+    subgraph Phase 3: Autonomous Healing Loop
+        S3["<b>Heal Agent</b><br/>Generate Structural Patch"] --> S4
+        S4{"<b>Verification Sandbox</b><br/>Execute Docker Isolation"}
+        S4 -->|"Fails Again"| N2
+    end
+    
+    S4 -->|"Validates Clean"| S5(["<b>Secure Push</b><br/>Commit Verified Code to Github"]):::success
 ```
 
 ---
