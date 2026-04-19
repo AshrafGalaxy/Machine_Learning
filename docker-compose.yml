@@ -3,7 +3,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: rift-backend
+    container_name: aegis-backend
     ports:
       - "8000:8000"
     volumes:
@@ -20,7 +20,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: rift-frontend
+    container_name: aegis-frontend
     ports:
       - "5173:5173"
     volumes:

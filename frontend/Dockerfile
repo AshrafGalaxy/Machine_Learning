@@ -1,4 +1,4 @@
-# RIFT Frontend Dockerfile (Development)
+# Aegis Frontend Dockerfile (Development)
 FROM node:20-slim
 
 WORKDIR /app
