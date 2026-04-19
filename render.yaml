@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: rift-backend
+    name: aegis-backend
     env: python
     region: ohio
     plan: free
