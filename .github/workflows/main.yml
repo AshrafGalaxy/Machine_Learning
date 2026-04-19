@@ -29,13 +29,22 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           python -m uvicorn main:app --host 0.0.0.0 --port 8000 &
-          sleep 5
 
       - name: Health check
         run: |
-          response=$(curl -s http://localhost:8000/api/health)
-          echo "Health response: $response"
-          echo "$response" | grep -q '"status":"healthy"'
+          # Dynamic waiting loop to accommodate 181MB Hugging Face model download
+          for i in {1..15}; do
+            response=$(curl -s http://localhost:8000/api/health || echo "failed")
+            if [[ "$response" == *'"status":"healthy"'* ]]; then
+              echo "Health response: $response"
+              echo "Server is fully booted and healthy!"
+              exit 0
+            fi
+            echo "Waiting for model download and server start... ($i/15)"
+            sleep 5
+            done
+            echo "Server failed to start within 75 seconds."
+            exit 1
 
   frontend:
     name: Frontend Build
